@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IQ.ku - Tes IQ & Karakter</title>
+    <link rel="icon" type="image/png" href="IQ.ku - Background.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+
+        <!-- Theme Toggle & Logout Toggle -->
+        <div style="position:fixed;top:12px;right:12px;z-index:999;display:flex;gap:6px;align-items:center;">
+            <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()" title="Ganti tema" style="position:static;">🌙</button>
+            <button class="theme-toggle-btn" id="logoutToggleBtn" onclick="logout()" title="Keluar dari Akun" style="position:static;display:none;">🚪</button>
+        </div>
+
+        <!-- Splash Screen -->
+        <div id="splash" class="page active">
+            <div class="splash-content" id="splashMainContent">
+                <div class="splash-icon">
+                    <img src="Titik Maju Logo.png" alt=".Maju" style="width:120px;height:120px;object-fit:contain;opacity:0.9;">
+                </div>
+                <div class="logo splash-logo">IQ<span>.ku</span></div>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:6px;letter-spacing:0.3px;">IQ.ku dibuat oleh Titik Maju</div>
+                <div class="splash-badges">
+                    <span>Tes IQ</span>
+                    <span>Tes DISC</span>
+                    <span>Tes MBTI</span>
+                    <span>Tes RAISEC</span>
+                </div>
+                <button class="btn btn-primary btn-pulse" id="splashStartBtn" onclick="showPage('home')">MULAI</button>
+            </div>
+            
+            <!-- Animated Loading State (hidden by default) -->
+            <div id="splashLoadingContent" style="display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;padding:24px;">
+                <div class="splash-icon" style="margin-bottom:24px;animation:pulse 2s infinite;">
+                    <img src="Titik Maju Logo.png" alt=".Maju" style="width:100px;height:100px;object-fit:contain;">
+                </div>
+                <div class="logo splash-logo" style="margin-bottom:8px;">IQ<span>.ku</span></div>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:12px;letter-spacing:0.3px;">IQ.ku dibuat oleh Titik Maju</div>
+                <div style="font-size:0.9rem;font-weight:600;color:var(--text-muted);margin-bottom:32px;letter-spacing:0.5px;">Mempersiapkan dasbor Anda...</div>
+                
+                <!-- Circular/Progress Animation -->
+                <div style="position:relative;width:180px;height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:32px;">
+                    <!-- Outer rotating ring -->
+                    <div style="position:absolute;width:100%;height:100%;border:4px solid transparent;border-top-color:#667eea;border-bottom-color:#764ba2;border-radius:50%;animation:spinRotate 2s linear infinite;"></div>
+                    <!-- Inner content -->
+                    <div style="text-align:center;z-index:2;">
+                        <div id="splashLoadingPct" style="font-size:2.2rem;font-weight:900;color:var(--text-color);line-height:1;">0%</div>
+                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;color:#718096;margin-top:6px;letter-spacing:1px;">Sedang Memuat</div>
+                    </div>
+                </div>
+                
+                <div id="splashLoadingStatus" style="font-size:0.8rem;font-weight:700;color:#764ba2;min-height:20px;transition:opacity 0.2s;">Mengamankan koneksi...</div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="login" class="page">
+            <!-- Left Panel: Keterangan Aplikasi -->
+            <div class="login-left-panel" style="text-align:left;">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                    <img src="IQ.ku.png" alt="IQ.ku" style="width:48px;height:48px;object-fit:contain;">
+                    <div class="logo" style="font-size:2rem;margin:0;">IQ<span>.ku</span></div>
+                </div>
+                <h2 style="font-size:1.35rem;font-weight:900;color:var(--text-color);margin-bottom:12px;line-height:1.3;">Platform Asesmen Psikologi Digital</h2>
+                <p style="font-size:0.85rem;line-height:1.6;opacity:0.95;font-weight:500;color:var(--text-muted5);margin-bottom:24px;">
+                    IQ.ku adalah platform asesmen psikologi digital modern yang menyediakan rangkaian tes kognitif dan kepribadian standar industri (IQ, DISC, MBTI, & RAISEC) untuk membantu Anda memahami potensi diri, gaya komunikasi, tipe kepribadian, serta minat karir secara akurat dan profesional.
+                </p>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="login-feature-item" style="justify-content:flex-start;padding:12px 14px;font-size:0.8rem;gap:10px;text-align:left;line-height:1.4;">
+                        <span>🧠</span> <div><strong>4 Instrumen Tes Pintar:</strong> Mengukur aspek IQ kognitif, DISC komunikasi, MBTI karakter, & RAISEC karir.</div>
+                    </div>
+                    <div class="login-feature-item" style="justify-content:flex-start;padding:12px 14px;font-size:0.8rem;gap:10px;text-align:left;line-height:1.4;">
+                        <span>📊</span> <div><strong>Hasil Analisis Instan:</strong> Dapatkan visualisasi chart, metrik KPI, dan deskripsi hasil tes yang sangat detail secara langsung.</div>
+                    </div>
+                    <div class="login-feature-item" style="justify-content:flex-start;padding:12px 14px;font-size:0.8rem;gap:10px;text-align:left;line-height:1.4;">
+                        <span>🔒</span> <div><strong>Keamanan Data Terjamin:</strong> Privasi akun dan enkripsi seluruh riwayat hasil pengujian Anda tersimpan dengan aman.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Panel: User Login Form -->
+            <div class="login-right-panel">
+                <h3 style="font-size:1.25rem;font-weight:800;color:var(--text-color);margin-bottom:6px;text-align:center;">Selamat Datang Kembali!</h3>
+                <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:24px;text-align:center;">Silakan masuk menggunakan kredensial akun Anda</p>
+                
+                <div class="form-group" style="margin-bottom:14px;text-align:left;">
+                    <label class="form-label" style="font-size:0.75rem;font-weight:700;color:var(--text-color);margin-bottom:6px;display:block;">USERNAME</label>
+                    <div style="background:var(--card-bg2);border:1px solid var(--border-color);border-radius:12px;padding:0 14px;height:44px;display:flex;align-items:center;">
+                        <span style="font-size:1rem;margin-right:10px;opacity:0.7;">👤</span>
+                        <input type="text" id="loginUser" style="background:transparent;border:none;outline:none;color:var(--text-color);font-size:0.9rem;width:100%;" placeholder="Masukkan username">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom:24px;text-align:left;">
+                    <label class="form-label" style="font-size:0.75rem;font-weight:700;color:var(--text-color);margin-bottom:6px;display:block;">PASSWORD</label>
+                    <div style="background:var(--card-bg2);border:1px solid var(--border-color);border-radius:12px;padding:0 14px;height:44px;display:flex;align-items:center;">
+                        <span style="font-size:1rem;margin-right:10px;opacity:0.7;">🔑</span>
+                        <input type="password" id="loginPass" style="background:transparent;border:none;outline:none;color:var(--text-color);font-size:0.9rem;width:100%;" placeholder="Masukkan password">
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="doLogin()" style="width:100%;height:44px;font-weight:700;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(102,126,234,0.3);transition:transform 0.2s;">MASUK</button>
+                <button class="btn btn-secondary" id="guestLoginBtn" onclick="loginAsGuest()" style="width:100%;height:44px;font-weight:700;background:var(--card-bg2);color:var(--text-color);border:1px solid var(--border-color);border-radius:12px;cursor:pointer;margin-top:10px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">MASUK SEBAGAI TAMU</button>
+                <div id="loginError" style="color:#e74c3c;font-size:0.82rem;margin-top:14px;text-align:center;font-weight:600;display:none;"></div>
+            </div>
+        </div>
+
+        <!-- Pengaturan Page -->
+        <div id="pengaturan" class="page">
+            <div class="riwayat-header">
+                <button class="btn btn-back" onclick="showPage('home')">&#8592;</button>
+                <h2>Pengaturan</h2>
+                <div></div>
+            </div>
+            <div class="filter-tabs" id="settingsTabs">
+                <span class="filter-tab active" data-ssettings="umum" onclick="showSettingsTab('umum')">Umum <span class="tab-badge">Semua</span></span>
+                <span class="filter-tab" data-ssettings="manajemen" onclick="showSettingsTab('manajemen')" id="manajemenTab" style="display:none;">Manajemen Akses <span class="tab-badge">Admin/Super</span></span>
+                <span class="filter-tab" data-ssettings="aktivasi" onclick="showSettingsTab('aktivasi')" id="activationTab" style="display:none;">Aktivasi <span class="tab-badge">Super</span></span>
+                <span class="filter-tab" data-ssettings="bantuan" onclick="showSettingsTab('bantuan')">Bantuan & Tentang <span class="tab-badge">Semua</span></span>
+            </div>
+            <div class="settings-content" id="settingsContent"></div>
+        </div>
+
+        <!-- Home Page (Gojek-like) -->
+        <div id="home" class="page">
+            <div class="home-top">
+                <div class="home-header">
+                    <div>
+                        <div class="greeting" id="greetingText">Halo, Pengguna!</div>
+                        <div class="greeting-sub">Siap uji dirimu hari ini?</div>
+                    </div>
+                    <div class="logo-small">IQ<span>.ku</span></div>
+                </div>
+
+                <div class="saldo-card">
+                    <div class="saldo-row">
+                        <div class="saldo-item">
+                            <div class="saldo-num" id="totalTests">0</div>
+                            <div class="saldo-label">Tes Selesai</div>
+                        </div>
+                        <div class="saldo-divider"></div>
+                        <div class="saldo-item">
+                            <div class="saldo-num" id="avgScore">-</div>
+                            <div class="saldo-label">Rata-rata IQ</div>
+                        </div>
+                        <div class="saldo-divider"></div>
+                        <div class="saldo-item">
+                            <div class="saldo-num" id="lastTest">-</div>
+                            <div class="saldo-label">Terakhir</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="activationBanner" style="display:none;margin:0 16px 12px;padding:12px 16px;background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);border-radius:12px;cursor:pointer;" onclick="showPage('pengaturan');showSettingsTab('bantuan');">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:1.2rem;">&#9888;&#65039;</span>
+                    <div>
+                        <div style="font-weight:700;color:#e74c3c;font-size:0.88rem;">Aplikasi Belum Diaktivasi</div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">Hubungi admin untuk aktivasi. Ketuk untuk info lebih lanjut.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item" id="menuTestIQ" onclick="startTest('iq')">
+                    <div class="menu-icon"><img src="IQ.png" alt="IQ"></div>
+                    <div class="menu-text">Tes IQ</div>
+                </div>
+                <div class="menu-item" id="menuTestDISC" onclick="startTest('disc')">
+                    <div class="menu-icon"><img src="DISC.png" alt="DISC"></div>
+                    <div class="menu-text">Tes DISC</div>
+                </div>
+                <div class="menu-item" id="menuTestMBTI" onclick="startTest('mbti')">
+                    <div class="menu-icon"><img src="MBTI.png" alt="MBTI"></div>
+                    <div class="menu-text">Tes MBTI</div>
+                </div>
+                <div class="menu-item" id="menuTestRAISEC" onclick="startTest('raisec')">
+                    <div class="menu-icon"><img src="RAISEC.png" alt="RAISEC"></div>
+                    <div class="menu-text">Tes RAISEC</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Riwayat Page -->
+        <div id="riwayat" class="page">
+            <div class="riwayat-header">
+                <button class="btn btn-back" onclick="showPage('home')">&#8592;</button>
+                <h2>Riwayat Tes</h2>
+                <div></div>
+            </div>
+
+            <div class="filter-tabs" id="filterTabs">
+                <span class="filter-tab active" data-filter="all" onclick="filterRiwayat('all')">Semua</span>
+                <span class="filter-tab" data-filter="iq" onclick="filterRiwayat('iq')">IQ</span>
+                <span class="filter-tab" data-filter="disc" onclick="filterRiwayat('disc')">DISC</span>
+                <span class="filter-tab" data-filter="mbti" onclick="filterRiwayat('mbti')">MBTI</span>
+                <span class="filter-tab" data-filter="raisec" onclick="filterRiwayat('raisec')">RAISEC</span>
+            </div>
+
+            <div class="riwayat-list" id="riwayatList">
+                <!-- Dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Test Page -->
+        <div id="test" class="page">
+            <div class="test-header">
+                <button class="btn btn-back" onclick="confirmBack()">&#8592;</button>
+                <div class="test-info">
+                    <span id="testTitle">Tes IQ</span>
+                    <span id="testProgress">1/25</span>
+                </div>
+                <div id="timer" class="timer">30:00</div>
+            </div>
+            <div class="test-content" id="testContent"></div>
+            <div class="test-footer">
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
+        </div>
+
+        <!-- Result Page -->
+        <div id="result" class="page">
+            <div class="result-top">
+                <button class="btn btn-back" onclick="showPage('home')">&#8592;</button>
+                <div class="logo-small">IQ<span>.ku</span></div>
+                <div></div>
+            </div>
+            <div class="result-content" id="resultContent"></div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav" id="bottomNav">
+            <div class="nav-item active" onclick="showPage('home'); updateNav(this)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3L4 9V21H10V14H14V21H20V9L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                <span>Beranda</span>
+            </div>
+            <div class="nav-item" onclick="showRiwayat(); updateNav(this)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>Riwayat</span>
+            </div>
+            <div class="nav-item" onclick="showSettings(); updateNav(this)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M19.4 15C19.2669 15.3016 19.2272 15.6362 19.286 15.9606C19.3448 16.285 19.4995 16.5843 19.73 16.82L19.79 16.88C19.976 17.0657 20.1235 17.2863 20.2241 17.5291C20.3248 17.7719 20.3766 18.0322 20.3766 18.295C20.3766 18.5578 20.3248 18.8181 20.2241 19.0609C20.1235 19.3037 19.976 19.5243 19.79 19.71C19.6043 19.896 19.3837 20.0435 19.1409 20.1441C18.8981 20.2448 18.6378 20.2966 18.375 20.2966C18.1122 20.2966 17.8519 20.2448 17.6091 20.1441C17.3663 20.0435 17.1457 19.896 16.96 19.71L16.9 19.65C16.6643 19.4195 16.365 19.2648 16.0406 19.206C15.7162 19.1472 15.3816 19.1869 15.08 19.32C14.7842 19.4468 14.532 19.6572 14.3543 19.9255C14.1766 20.1938 14.0813 20.5082 14.08 20.83V21C14.08 21.5304 13.8693 22.0391 13.4942 22.4142C13.1191 22.7893 12.6104 23 12.08 23C11.5496 23 11.0409 22.7893 10.6658 22.4142C10.2907 22.0391 10.08 21.5304 10.08 21V20.91C10.0723 20.579 9.96512 20.258 9.77251 19.9887C9.5799 19.7194 9.31074 19.5143 9 19.4C8.69838 19.2669 8.36381 19.2272 8.03941 19.286C7.71502 19.3448 7.41568 19.4995 7.18 19.73L7.12 19.79C6.93425 19.976 6.71368 20.1235 6.47088 20.2241C6.22808 20.3248 5.96783 20.3766 5.705 20.3766C5.44217 20.3766 5.18192 20.3248 4.93912 20.2241C4.69632 20.1235 4.47575 19.976 4.29 19.79C4.10405 19.6043 3.95653 19.3837 3.85588 19.1409C3.75523 18.8981 3.70343 18.6378 3.70343 18.375C3.70343 18.1122 3.75523 17.8519 3.85588 17.6091C3.95653 17.3663 4.10405 17.1457 4.29 16.96L4.35 16.9C4.58054 16.6643 4.73519 16.365 4.794 16.0406C4.85282 15.7162 4.81312 15.3816 4.68 15.08C4.55324 14.7842 4.34276 14.532 4.07447 14.3543C3.80618 14.1766 3.49179 14.0813 3.17 14.08H3C2.46957 14.08 1.96086 13.8693 1.58579 13.4942C1.21071 13.1191 1 12.6104 1 12.08C1 11.5496 1.21071 11.0409 1.58579 10.6658C1.96086 10.2907 2.46957 10.08 3 10.08H3.09C3.42099 10.0723 3.742 9.96512 4.0113 9.77251C4.28059 9.5799 4.48572 9.31074 4.6 9C4.73312 8.69838 4.77282 8.36381 4.714 8.03941C4.65519 7.71502 4.50054 7.41568 4.27 7.18L4.21 7.12C4.02405 6.93425 3.87653 6.71368 3.77588 6.47088C3.67523 6.22808 3.62343 5.96783 3.62343 5.705C3.62343 5.44217 3.67523 5.18192 3.77588 4.93912C3.87653 4.69632 4.02405 4.47575 4.21 4.29C4.39575 4.10405 4.61632 3.95653 4.85912 3.85588C5.10192 3.75523 5.36217 3.70343 5.625 3.70343C5.88783 3.70343 6.14808 3.75523 6.39088 3.85588C6.63368 3.95653 6.85425 4.10405 7.04 4.29L7.1 4.35C7.33568 4.58054 7.63502 4.73519 7.95941 4.794C8.28381 4.85282 8.61838 4.81312 8.92 4.68H9C9.29577 4.55324 9.54802 4.34276 9.72569 4.07447C9.90337 3.80618 9.99872 3.49179 10 3.17V3C10 2.46957 10.2107 1.96086 10.5858 1.58579C10.9609 1.21071 11.4696 1 12 1C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V3.09C14.0013 3.41179 14.0966 3.72618 14.2743 3.99447C14.452 4.26276 14.7042 4.47324 15 4.6C15.3016 4.73312 15.6362 4.77282 15.9606 4.714C16.285 4.65519 16.5843 4.50054 16.82 4.27L16.88 4.21C17.0657 4.02405 17.2863 3.87653 17.5291 3.77588C17.7719 3.67523 18.0322 3.62343 18.295 3.62343C18.5578 3.62343 18.8181 3.67523 19.0609 3.77588C19.3037 3.87653 19.5243 4.02405 19.71 4.21C19.896 4.39575 20.0435 4.61632 20.1441 4.85912C20.2448 5.10192 20.2966 5.36217 20.2966 5.625C20.2966 5.88783 20.2448 6.14808 20.1441 6.39088C20.0435 6.63368 19.896 6.85425 19.71 7.04L19.65 7.1C19.4195 7.33568 19.2648 7.63502 19.206 7.95941C19.1472 8.28381 19.1869 8.61838 19.32 8.92V9C19.4468 9.29577 19.6572 9.54802 19.9255 9.72569C20.1938 9.90337 20.5082 9.99872 20.83 10H21C21.5304 10 22.0391 10.2107 22.4142 10.5858C22.7893 10.9609 23 11.4696 23 12C23 12.5304 22.7893 13.0391 22.4142 13.4142C22.0391 13.7893 21.5304 14 21 14H20.91C20.5882 14.0013 20.2738 14.0966 20.0055 14.2743C19.7372 14.452 19.5268 14.7042 19.4 15Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Pengaturan</span>
+            </div>
+        </div>
+
+        <!-- Profile Input Modal -->
+        <div id="profileModal" class="modal-overlay">
+            <div class="modal modal-profile">
+                <h3>Profil Peserta</h3>
+                <p>Isi data diri Anda sebelum memulai tes.</p>
+                <input type="text" id="profileName" class="form-input" placeholder="Nama lengkap" maxlength="50" style="margin-bottom:10px;">
+                <input type="number" id="profileAge" class="form-input" placeholder="Usia" min="5" max="100" style="margin-bottom:10px;">
+                <select id="profileGender" class="form-input" style="background:var(--card-bg2);color:var(--text-color);border:1px solid var(--border-color);border-radius:12px;height:44px;margin-bottom:10px;width:100%;padding:0 12px;font-weight:600;outline:none;">
+                    <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+                <input type="text" id="profileInstansi" class="form-input" placeholder="Instansi / Sekolah" maxlength="50" style="margin-bottom:20px;">
+                <div style="display:flex;gap:10px;">
+                    <button class="btn btn-secondary" onclick="closeProfileModal()" style="flex:1;">Kembali</button>
+                    <button class="btn btn-primary" onclick="saveProfile()" style="flex:1;">Mulai Tes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share Modal -->
+        <div id="shareModal" class="modal-overlay">
+            <div class="modal modal-profile">
+                <h3>&#128228; Bagikan Tes</h3>
+                <p id="shareModalStatus">Memulai server...</p>
+                <div id="shareUrlContainer" style="display:none;">
+                    <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:14px;margin-bottom:12px;word-break:break-all;">
+                        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:4px;">Akses dari perangkat lain di jaringan yang sama:</div>
+                        <div id="shareUrl" style="font-size:1.1rem;font-weight:600;color:#2ecc71;"></div>
+                    </div>
+                    <p style="font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:14px;">Buka URL di atas di browser perangkat lain. Server aktif hingga ditutup.</p>
+                    <button class="btn btn-danger" onclick="stopShareServer()" style="width:100%;">Hentikan Server</button>
+                </div>
+                <div id="shareError" style="color:#e74c3c;font-size:0.82rem;display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
